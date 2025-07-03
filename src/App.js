@@ -5,27 +5,26 @@ function App() {
   useEffect(() => {
 
     const fetchPrice = () => {
-      fetch (`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo`)
+      const API_KEY = process.env.REACT_APP_api_key
+      //alpha vantage
+      //fetch (`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo`)
       //fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=TSLA&apikey=${process.env.REACT_APP_api_key}`)
+      //finnhub
+      fetch(`https://finnhub.io/api/v1/quote?symbol=TSLA&token=${API_KEY}`)
 
     //parse það sem json
       .then(res => res.json())
     //finnum verðið
     .then((data) => {
-      if (
-        !data["Global Quote"] ||
-        !data["Global Quote"]["05. price"]
-      ) {
-        // ef limit eða api ekki að svara
-        const errMsg = data.Note || data.Information || "Unknown API error";
-        throw new Error(errMsg);
-      }
-      setPrice(data["Global Quote"]["05. price"]);
-    })
-    .catch((err) => {
-      console.error("API error:", err.message);
-    });
-  };
+      console.log("Finnhub svar:", data);
+          if (!data.c) {
+            console.warn("Engin verð skilað:", data);
+            return;
+          }
+          setPrice(data.c);
+        })
+        .catch(err => console.error("Villa við að sækja verð:", err));
+    };
     
   //köllum strax a fallið
   fetchPrice()

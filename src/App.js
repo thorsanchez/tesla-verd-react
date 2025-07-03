@@ -1,4 +1,6 @@
 import React, {useEffect, useState } from "react";
+import './App.css';
+
 
 function App() {
   const [price, setPrice ] = useState(null)
@@ -34,11 +36,16 @@ function App() {
   return () => clearInterval(intervalId);
 }, [])
   return(
-    <div>
+    <>
+    <div className="App">
       <h1> Tesla Stock Price</h1>
       {/*birta verð*/}
       {price? <p>${parseFloat(price).toFixed(2)}</p> : <p> Loading</p>}
     </div>
+    <img src="/tesla-roadster-space.jpg"
+    alt="Tesla space"
+    className="image-overlay"/>
+    </>
   )
 }
 

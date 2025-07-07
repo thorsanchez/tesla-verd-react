@@ -45,7 +45,11 @@ function App() {
     <img src="/tesla-roadster-space.jpg"
     alt="Tesla space"
     className="image-overlay"/>
+    <img src="/teslo-logo-icon.png"
+    alt="Tesla logo"
+    className="image-logo"/>
     </>
+
   )
 }
 
